@@ -52,12 +52,16 @@ public class FundingBoady {
 		 //execute statement
 		 preparedStmt.execute(); 
 		 con.close(); 
-		 output = "Inserted funding body details successfully"; 
+		 String newFbody =readFundingBodies(); 
+		 output = "{\"status\":\"success\", \"data\": \"" + 
+				 newFbody + "\"}"; 
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while inserting the funding body details."; 
-		 System.err.println(e.getMessage()); 
+			 
+			 output = "{\"status\":\"error\", \"data\": \"Error while inserting the funding body details.\"}"; 
+			 System.err.println(e.getMessage()); 
+
 		 }
 		 
 		 
@@ -108,11 +112,9 @@ public class FundingBoady {
 	 output += "<td>" + fund_range + "</td>"; 
 	 
 	 // buttons
-	 output += "<td><input name='btnUpdate' type='button' value='Update'  class='btn btn-secondary'></td>"
-	 + "<td><form method='post' action='items.jsp'>"
-	 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-	 + "<input name='stakeholderID' type='hidden' value='" + stakeholderID 
-	 + "'>" + "</form></td></tr>"; 
+	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+			 + "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-itemid='" + stakeholderID + "'>" + "</td></tr>"; 
+ 
 	 } 
 	 con.close(); 
 	 // Complete the html table
@@ -152,12 +154,13 @@ public class FundingBoady {
 		 // execute the statement
 		 preparedStmt.execute(); 
 		 con.close(); 
-		 output = "Updated successfully"; 
+		 String newFbody = readFundingBodies(); 
+		 output = "{\"status\":\"success\", \"data\": \"" + newFbody + "\"}"; 
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while updating funding body details..."; 
-		 System.err.println(e.getMessage()); 
+			 output = "{\"status\":\"error\", \"data\": \"Error while updating Funding Body Details.\"}"; 
+			 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
 		
@@ -166,7 +169,7 @@ public class FundingBoady {
 	
 	//delete funding body details
 	
-	public String deleteFundingBody(String fundingBodyID) 
+	public String deleteFundingBody(String idFundingBody) 
 	 { 
 	 String output = ""; 
 	 try
@@ -178,16 +181,19 @@ public class FundingBoady {
 	 String query = "delete from fundingbody where `idFundingBody`=?"; 
 	 PreparedStatement preparedStmt = con.prepareStatement(query); 
 	 // binding values
-	 preparedStmt.setInt(1, Integer.parseInt(fundingBodyID)); 
+	 preparedStmt.setInt(1, Integer.parseInt(idFundingBody)); 
 	 // execute the statement
 	 preparedStmt.execute(); 
 	 con.close(); 
-	 output = "Deleted FundingID = "+fundingBodyID+ " successfully"; 
+	 String newFbody = readFundingBodies(); 
+	 output = "{\"status\":\"success\", \"data\": \"" + newFbody + "\"}";  
 	 } 
 	 catch (Exception e) 
 	 { 
-	 output = "Error while deleting the funding body detail."; 
-	 System.err.println(e.getMessage()); 
+		 
+		 output = "{\"status\":\"error\", \"data\":  \"Error while deleting the funding body detail.\"}"; 
+		 System.err.println(e.getMessage()); 
+
 	 } 
 	 return output; 
 	 }
