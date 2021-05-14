@@ -7,7 +7,7 @@
 <head>
 
 <script src="Components/jquery-3.2.1.min.js"></script>
-<script src="Components/item.js"></script>
+<script src="Components/fBody.js"></script>
 <link rel="stylesheet" href="Views/bootstrap.min.css">
 
 <meta charset="ISO-8859-1">

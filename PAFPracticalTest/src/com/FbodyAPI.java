@@ -39,12 +39,12 @@ public class FbodyAPI extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String output = FundingBoadyObj.insertFundingBody(request.getParameter("name"), 
-				 request.getParameter("email"),
-				 request.getParameter("address"), 
-				request.getParameter("phone"),
-				request.getParameter("interestArea"), 
-				request.getParameter("fund_range")); 
+		String output = FundingBoadyObj.insertFundingBody(request.getParameter("fBodyName"), 
+				 request.getParameter("fBodyEmail"),
+				 request.getParameter("fBodyAddress"), 
+				request.getParameter("fBodyPhone"),
+				request.getParameter("fBodyIarea"), 
+				request.getParameter("fBodyFrange")); 
 				response.getWriter().write(output);
 	}
 
@@ -54,12 +54,12 @@ public class FbodyAPI extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request); 
 		 String output = FundingBoadyObj.updateFundingBody(paras.get("hidFbodyIDSave").toString(), 
-		 paras.get("name").toString(), 
-		 paras.get("email").toString(), 
-		paras.get("address").toString(), 
-		paras.get("phone").toString(),
-		paras.get("interestArea").toString(),
-		paras.get("fund_range").toString()); 
+		 paras.get("fBodyName").toString(), 
+		 paras.get("fBodyEmail").toString(), 
+		paras.get("fBodyAddress").toString(), 
+		paras.get("fBodyPhone").toString(),
+		paras.get("fBodyIarea").toString(),
+		paras.get("fBodyFrange").toString()); 
 		response.getWriter().write(output);
 		
 	}
@@ -69,7 +69,7 @@ public class FbodyAPI extends HttpServlet {
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request); 
-		 String output = FundingBoadyObj.deleteFundingBody(paras.get("idFundingBody").toString()); 
+		 String output = FundingBoadyObj.deleteFundingBody(paras.get("stakeholderID").toString()); 
 		response.getWriter().write(output); 
 	}
 	
@@ -81,8 +81,7 @@ public class FbodyAPI extends HttpServlet {
 		try
 		 { 
 		 Scanner scanner = new Scanner(request.getInputStream(), "UTF-8"); 
-		 String queryString = scanner.hasNext() ? 
-		 scanner.useDelimiter("\\A").next() : ""; 
+		 String queryString = scanner.hasNext() ? scanner.useDelimiter("\\A").next() : ""; 
 		 scanner.close(); 
 		 String[] params = queryString.split("&"); 
 		 for (String param : params) 

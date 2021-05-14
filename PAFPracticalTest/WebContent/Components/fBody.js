@@ -1,5 +1,6 @@
 $(document).ready(function()
-{ 
+{
+alert("fBody.js file conncted") 
 if ($("#alertSuccess").text().trim() == "") 
  { 
  $("#alertSuccess").hide(); 
@@ -72,7 +73,7 @@ if (status == "success")
 $(document).on("click", ".btnUpdate", function(event) 
 { 
 
- $("#hidFbodyIDSave").val($(this).data("itemid")); 
+ $("#hidFbodyIDSave").val($(this).data("itemid"));  
  $("#fBodyName").val($(this).closest("tr").find('td:eq(0)').text()); 
  $("#fBodyEmail").val($(this).closest("tr").find('td:eq(1)').text()); 
  $("#fBodyAddress").val($(this).closest("tr").find('td:eq(2)').text());
@@ -137,10 +138,11 @@ if ($("#fBodyEmail").val().trim() == "")
  } 
 
 // EMAIL VALIDATION 
-var tmpEmail = $("fBodyEmail").val().trim();
+var tmpEmail = $("#fBodyEmail").val().trim();
 var atposition=tmpEmail.indexOf("@");  
 var dotposition=tmpEmail.lastIndexOf(".");  
-if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){
+if (atposition<1 || dotposition<atposition+2 || dotposition+2>=tmpEmail.length)
+{
 return "Please enter a valid email address."; 
 
 }

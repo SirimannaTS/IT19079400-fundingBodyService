@@ -33,7 +33,9 @@ public class FundingBoady {
 		 Connection con = connect(); 
 		
 		 if (con == null) 
-		 {return "Error while connecting to the database for inserting."; } 
+		 {
+			 return "Error while connecting to the database for inserting."; 
+		 } 
 		 // create a prepared statement
 		 String query = "insert into fundingbody (`idFundingBody`,`name`,`email`,`address`,`phone`,`interestArea`,`fund_range`)"+ "values (?,?,?,?,?,?,?)"; 
 	
@@ -53,8 +55,7 @@ public class FundingBoady {
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 String newFbody =readFundingBodies(); 
-		 output = "{\"status\":\"success\", \"data\": \"" + 
-				 newFbody + "\"}"; 
+		 output = "{\"status\":\"success\", \"data\": \"" + newFbody + "\"}"; 
 		 } 
 		 catch (Exception e) 
 		 { 
@@ -104,7 +105,7 @@ public class FundingBoady {
 	 String interestArea = rs.getString("interestArea"); 
 	 String fund_range = Double.toString(rs.getDouble("fund_range"));    
 	 // Add into the html table
-	 output += "<tr><td>" + name + "</td>"; 
+	 output += "<tr><td><input id='hidFbodyIDUpdate' name='hidFbodyIDUpdate' type='hidden' value='"  + stakeholderID +"'>" + name +  "</td>"; 
 	 output += "<td>" + email + "</td>"; 
 	 output += "<td>" + address + "</td>"; 
 	 output += "<td>" + phone + "</td>"; 
@@ -112,7 +113,7 @@ public class FundingBoady {
 	 output += "<td>" + fund_range + "</td>"; 
 	 
 	 // buttons
-	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary' data-itemid='" + stakeholderID + "'></td>"
 			 + "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-itemid='" + stakeholderID + "'>" + "</td></tr>"; 
  
 	 } 
@@ -140,7 +141,7 @@ public class FundingBoady {
 		 if (con == null) 
 		 {return "Error while connecting to the database for updating."; } 
 		 // create a prepared statement
-		 String query = "UPDATE fundingbody SET name=?,email=?,address=?,phone=?,interestArea=?,fund_range=? WHERE idFundingBody=?"; 
+		 String query = "UPDATE fundingbody SET `name`=?,`email`=?,`address`=?,`phone`=?,`interestArea`=?,`fund_range`=? WHERE `idFundingBody`=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
 		 preparedStmt.setString(1, name); 
@@ -148,7 +149,7 @@ public class FundingBoady {
 		 preparedStmt.setString(3, address);
 		 preparedStmt.setInt(4, Integer.parseInt(phone));
 		 preparedStmt.setString(5, interestArea); 
-		 preparedStmt.setInt(6, Integer.parseInt(fund_range));
+		 preparedStmt.setDouble(6, Double.parseDouble(fund_range));
 		 preparedStmt.setInt(7, Integer.parseInt(idFundingBody)); 
 		 
 		 // execute the statement
